@@ -18,3 +18,4 @@ python eval.py  --ckpt checkpoints/wdm.pt --data data/CTDPD
 ```
 
 Hyper-parameters live in `configs/wdm.yaml` 
+The CTDPD dataset can be downloaded at https://pan.baidu.com/s/1GIrVg4OvVs7KPwTiMh8pkA(Code: km82)
