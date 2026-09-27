@@ -1,0 +1,47 @@
+# WDM hyperparameters aligned with the manuscript (§3.4, Eq. 9–10).
+data:
+  root: data/CTDPD
+  image_size: 512
+  batch_size: 8
+  num_workers: 4
+  split: [0.8, 0.1, 0.1]
+
+wae:
+  latent_ch: 8          # C in z0 ∈ R^{B×C×64×64}
+  base_ch: 64
+  cardinality: 32       # Eq. (6)
+  bottleneck: [256, 64, 64, 256]  # Table 2
+
+vm_unet:
+  embed_dim: 96
+  depths: [2, 2, 2, 2]  # VSS ×2 per stage
+  d_state: 16
+  s_color: 1.0
+  s_text: 0.7
+  clip_dim: 768         # CLIP ViT-L/14
+
+diffusion:
+  T: 1000
+  beta_start: 1.0e-4
+  beta_end: 2.0e-2
+  infer_steps: 20       # DPM-Solver
+  infer_steps_hq: 50
+
+train:
+  lr: 5.0e-5
+  betas: [0.9, 0.99]
+  weight_decay: 0.01
+  seed: 42
+  seeds_eval: [42, 43, 44, 45, 46, 47]
+  lambda_recon: 0.1
+  lambda_color: 0.05
+  color_sat_thresh: 0.25
+  wae_pretrain_epochs: 20
+  joint_epochs: 80
+  device: cuda
+
+eval:
+  fid_dims: 2048
+  is_splits: 10
+  gen_images_for_is: 1000
+  lpips_net: alex
